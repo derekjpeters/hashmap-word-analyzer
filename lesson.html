@@ -1,11 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hash Maps</title>
-</head>
-<body>
-    
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Hash Maps</title>
+	</head>
+	<body>
+		<script>
+			let hashMap = new Map();
+
+			//adding key value pairs
+			hashMap.set("apple", 3);
+			hashMap.set("banana", 7);
+			hashMap.set("cherry", 5);
+
+			console.log(hashMap.get("apple"));
+
+            console.log(hashMap.has("banana"));
+
+            console.log(hashMap);
+
+            hashMap.delete("cherry");
+            console.log(hashMap);
+
+            function twoSum(nums, target) {
+                let map = new Map();
+
+                for (let i = 0; i < nums.length; i++) {
+                    let complement = target - nums[i];
+
+                    if (map.has(complement)) {
+                        return [map.get(complement), i];
+                    }
+                    map.set(nums[i], i);
+                }
+
+                return null;
+            }
+
+            //Test Case
+            console.log(twoSum([2, 7, 11, 15], 9));
+            console.log(twoSum([1, 9, 13, 17], 11));
+
+            function groupAnagrams(strs) {
+                let map = new Map();
+
+                for (let str of strs) {
+                    let sortedStr = str.split('').sort().join('');
+
+                    if(!map.has(sortedStr)) {
+                        map.set(sortedStr, []);
+                    }
+                    map.get(sortedStr).push(str);
+
+                }
+                return Array.from(map.values());
+            }
+
+            console.log(groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]));
+
+            function findDuplicate(arr) {
+                let countMap = new Map();
+                let duplicates = [];
+
+                for (let num of arr) {
+                    countMap.set(num, (countMap.get(num) || 0) +1);
+                }
+
+                for (let [num, count] of countMap) {
+                    if (count > 1) {
+                        duplicates.push(num);
+                    }
+                }
+                return duplicates;
+            }
+
+            console.log(findDuplicate([1, 2, 3, 4, 2, 3, 4, 5, 6, 7,8, 9, 1]));
+
+			/*
+            //access these values
+            console.log(hashMap["apple"]);
+
+            //check if a key exists
+            console.log('banana' in hashMap);
+
+            console.log(hashMap);
+
+            delete hashMap['cherry'];
+            console.log(hashMap);
+            */
+		</script>
+	</body>
 </html>
